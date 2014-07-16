@@ -14,10 +14,8 @@ public class RightTriangle {
     }
 
     public String toString() {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j <= i; j++) {
-                sb.append("*");
-            }
+        for (int i = 1; i <= size; i++) {
+            sb.append(new HorizontalLine(i));
             sb.append("\n");
         }
         return sb.toString();
