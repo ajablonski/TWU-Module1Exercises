@@ -3,7 +3,7 @@ package com.twu.triangle;
 
 public class HorizontalLine {
     public static void main(String[] args) {
-        HorizontalLine hl = new HorizontalLine(3);
+        HorizontalLine hl = new HorizontalLine(8);
         System.out.println(hl);
     }
 
