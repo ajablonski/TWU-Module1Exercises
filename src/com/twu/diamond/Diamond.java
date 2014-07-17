@@ -30,7 +30,11 @@ public class Diamond {
         }
     }
 
-    private String[] getRows() {
+    public int getSize() {
+        return size;
+    }
+
+    public String[] getRows() {
         if (rows == null) {
             int rowCount = size * 2 - 1;
             rows = new String[rowCount];
