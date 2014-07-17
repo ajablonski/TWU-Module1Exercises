@@ -10,8 +10,14 @@ public class PrimeFactorsTest {
     // PrimeFactors.generate() tests
     @Test
     public void shouldReturnEmptyListWhenGivenOne() {
-
         List<Integer> pfl = PrimeFactors.generate(1);
+
+        Assert.assertEquals(0, pfl.size());
+    }
+
+    @Test
+    public void shouldReturnEmptyListWhenGivenZero() {
+        List<Integer> pfl = PrimeFactors.generate(0);
 
         Assert.assertEquals(0, pfl.size());
     }

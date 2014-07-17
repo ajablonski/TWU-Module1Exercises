@@ -6,33 +6,30 @@ public class PrimeFactors {
     private PrimeFactors() {  }
 
     private static HashSet<Integer> primes = new HashSet<Integer> ();
-    private static HashSet<Integer> composites = new HashSet<Integer> ();
 
     public static boolean isPrime(int n) {
         if (n < 1) {
             throw new IllegalArgumentException("Expected positive integer");
         } else if (n == 1) {
             return false;
-        } else if (primes.contains(n)) {
-            return true;
-        } else if (composites.contains(n)) {
-            return false;
-        } else {
+        } else { // n > 1
+            assert(n > 1);
             try {
                 lowestFactor(n);
             } catch (IllegalArgumentException e) {
                 primes.add(n);
-                return true;
             }
-            composites.add(n);
-            return false;
+            return primes.contains(n);
         }
+    }
+
+    private static boolean isPrimeFactor(int factor, int composite) {
+        return (primes.contains(factor) || isPrime(factor)) && (composite % factor == 0);
     }
 
     public static int lowestFactor(int n) {
         for (int i = 2; i <= n / 2; i++) {
-            if (isPrime(i) && (n % i == 0)) {
-                composites.add(n);
+            if (isPrimeFactor(i, n)) {
                 return i;
             }
         }
@@ -40,18 +37,19 @@ public class PrimeFactors {
     }
 
     public static List<Integer> generate(int n) {
-        ArrayList<Integer> a = new ArrayList<Integer> ();
-        if (n == 1) {
-            return a;
+        ArrayList<Integer> factors = new ArrayList<Integer> ();
+
+        if (n > 1) {
+            int lowFactor;
+            while (!isPrime(n)) {
+                lowFactor = lowestFactor(n);
+                factors.add(lowFactor);
+                n = n / lowFactor;
+            }
+            factors.add(n);
         }
-        int lowFactor;
-        while (!isPrime(n)) {
-            lowFactor = lowestFactor(n);
-            a.add(lowFactor);
-            n = n / lowFactor;
-        }
-        a.add(n);
-        return a;
+
+        return factors;
     }
 
 }
